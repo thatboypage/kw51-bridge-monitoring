@@ -1,0 +1,82 @@
+{
+ "mode3": {
+  "raw": {
+   "limit_hz": 0.01965530464110645,
+   "false_alarm_days_before": 4,
+   "days_before": 226,
+   "first_alarm_after_works_start": "2019-05-28",
+   "share_after_days_flagged": 0.018018018018018018
+  },
+  "compensated": {
+   "limit_hz": 0.0156367736752289,
+   "false_alarm_days_before": 4,
+   "days_before": 226,
+   "first_alarm_after_works_start": "2019-05-24",
+   "share_after_days_flagged": 0.04504504504504504
+  }
+ },
+ "mode5": {
+  "raw": {
+   "limit_hz": 0.014926812393599675,
+   "false_alarm_days_before": 3,
+   "days_before": 226,
+   "first_alarm_after_works_start": "2019-05-27",
+   "share_after_days_flagged": 0.04504504504504504
+  },
+  "compensated": {
+   "limit_hz": 0.012011461809633233,
+   "false_alarm_days_before": 0,
+   "days_before": 226,
+   "first_alarm_after_works_start": "2019-05-15",
+   "share_after_days_flagged": 0.11711711711711711
+  }
+ },
+ "mode6": {
+  "raw": {
+   "limit_hz": 0.01970218512335258,
+   "false_alarm_days_before": 7,
+   "days_before": 226,
+   "first_alarm_after_works_start": "2019-06-28",
+   "share_after_days_flagged": 0.9819819819819819
+  },
+  "compensated": {
+   "limit_hz": 0.00974728736135587,
+   "false_alarm_days_before": 3,
+   "days_before": 226,
+   "first_alarm_after_works_start": "2019-06-02",
+   "share_after_days_flagged": 0.9819819819819819
+  }
+ },
+ "mode9": {
+  "raw": {
+   "limit_hz": 0.011334493279078338,
+   "false_alarm_days_before": 6,
+   "days_before": 226,
+   "first_alarm_after_works_start": "2019-05-17",
+   "share_after_days_flagged": 0.9819819819819819
+  },
+  "compensated": {
+   "limit_hz": 0.0054056767358679515,
+   "false_alarm_days_before": 3,
+   "days_before": 226,
+   "first_alarm_after_works_start": "2019-05-15",
+   "share_after_days_flagged": 0.9819819819819819
+  }
+ },
+ "mode13": {
+  "raw": {
+   "limit_hz": 0.11717779621919838,
+   "false_alarm_days_before": 7,
+   "days_before": 226,
+   "first_alarm_after_works_start": null,
+   "share_after_days_flagged": 0.0
+  },
+  "compensated": {
+   "limit_hz": 0.06524255997387693,
+   "false_alarm_days_before": 4,
+   "days_before": 226,
+   "first_alarm_after_works_start": "2019-06-22",
+   "share_after_days_flagged": 0.9819819819819819
+  }
+ }
+}
