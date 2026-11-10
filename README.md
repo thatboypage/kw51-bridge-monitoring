@@ -2,6 +2,8 @@
 
 **Result:** on 15 months of measured data from the KW51 steel railway bridge in Leuven, Belgium, a temperature model learned only from the pre-retrofit period removes most of the seasonal swing in the bridge's natural frequencies. With temperature removed, the effect of the 2019 strengthening works becomes measurable at a fixed temperature: **+2.11% for mode 6 and +1.56% for mode 13, and −0.29% to −0.75% for modes 3, 5 and 9** (95% intervals within ±0.01–0.08 percentage points). On a simple alarm chart, the compensation **roughly halves the alarm band** for modes 6, 9 and 13. For mode 13 it turns a chart that **never flags** the post-retrofit change into one that flags **98% of post-retrofit days**.
 
+Plain-English write-up: [The alarm that never rang: separating temperature from real change on a railway bridge](https://medium.com/@richardolanite/the-alarm-that-never-rang-separating-temperature-from-real-change-on-a-railway-bridge-d7d7e2989daa) (Medium).
+
 Data: K. Maes and G. Lombaert, *Monitoring railway bridge KW51 before, during, and after retrofitting*, ASCE Journal of Bridge Engineering 26(3), 2021, [doi:10.1061/(ASCE)BE.1943-5592.0001668](https://ascelibrary.com/doi/10.1061/%28ASCE%29BE.1943-5592.0001668); dataset [doi:10.5281/zenodo.3745914](https://zenodo.org/record/3745914). This repository uses only the `trackedmodes` file (natural frequencies and environmental data, hourly). The data are not redistributed here; see *Reproduce*.
 
 ## The problem
