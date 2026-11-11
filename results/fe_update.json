@@ -1,0 +1,30 @@
+{
+ "before": {
+  "arch_rise_m": 22.995780578621556,
+  "mass_kg_per_m_per_side": 8722.671225245776,
+  "girder_stiffness_factor": 5.151377923120726,
+  "kappa_before": 0.7097022115423444
+ },
+ "after": {
+  "kappa_after": 0.7636303774593002,
+  "added_mass_kg_per_side": 12967.394294502363
+ },
+ "stiffness_only": {
+  "kappa_after": 0.7517576121247558
+ },
+ "mass_only": {
+  "added_mass_kg": 0.0
+ },
+ "rms_error_pct_points": {
+  "both": 0.18856904188902385,
+  "stiffness_only": 0.29036616966710516,
+  "mass_only": 1.7463576983853757
+ },
+ "freq_error_before_pct": {
+  "5": -17.489326555385976,
+  "6": -9.531545225841276,
+  "10": -5.802801909219546,
+  "12": 6.974868554441183,
+  "13": 17.554333499372543
+ }
+}

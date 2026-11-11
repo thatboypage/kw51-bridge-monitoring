@@ -1,6 +1,6 @@
 # Separating temperature from structural change on a real railway bridge (KW51)
 
-**Result:** on 15 months of measured data from the KW51 steel railway bridge in Leuven, Belgium, a temperature model learned only from the pre-retrofit period removes most of the seasonal swing in the bridge's natural frequencies. With temperature removed, the effect of the 2019 strengthening works becomes measurable at a fixed temperature: **+2.11% for mode 6 and +1.56% for mode 13, and −0.29% to −0.75% for modes 3, 5 and 9** (95% intervals within ±0.01–0.08 percentage points). On a simple alarm chart, the compensation **roughly halves the alarm band** for modes 6, 9 and 13. For mode 13 it turns a chart that **never flags** the post-retrofit change into one that flags **98% of post-retrofit days**.
+**Result:** on 15 months of measured data from the KW51 steel railway bridge in Leuven, Belgium, a temperature model learned only from the pre-retrofit period removes most of the seasonal swing in the bridge's natural frequencies. With temperature removed, the effect of the 2019 strengthening works becomes measurable at a fixed temperature: **+2.11% for mode 6 and +1.56% for mode 13, and −0.29% to −0.75% for modes 3, 5 and 9** (95% intervals within ±0.01–0.08 percentage points). On a simple alarm chart, the compensation **roughly halves the alarm band** for modes 6, 9 and 13. For mode 13 it turns a chart that **never flags** the post-retrofit change into one that flags **98% of post-retrofit days**. A finite element model of the arch, girder and diagonals then shows what the strengthening did structurally: the pattern of changes across the vertical modes matches **7–8% stiffer diagonal connections plus 6–13 t of added steel per side**, and that conclusion holds under every tested variant of the unpublished geometry.
 
 Plain-English write-up: [The alarm that never rang: separating temperature from real change on a railway bridge](https://medium.com/@richardolanite/the-alarm-that-never-rang-separating-temperature-from-real-change-on-a-railway-bridge-d7d7e2989daa) (Medium).
 
@@ -55,8 +55,35 @@ A change in stiffness shows up as a change in natural frequency, which is the ba
 ## What the results mean
 
 - **Temperature compensation is what makes monitoring usable.** On raw frequencies, normal winter behaviour sets the alarm limits so wide that real changes can pass unnoticed, as mode 13 shows. Learning normal behaviour first, then watching what is left over, roughly halves the alarm band and makes the retrofit stand out.
-- **The retrofit changed different modes in different directions.** Two modes stiffened by 1.6–2.1%, and three lost 0.3–0.75%. Strengthening both stiffens connections and adds steel, and each mode is sensitive to these in different proportions. The analysis measures the net change in each mode, not its cause; attributing it would need the bridge's finite element model.
+- **The retrofit changed different modes in different directions.** Two modes stiffened by 1.6–2.1%, and three lost 0.3–0.75%. Strengthening both stiffens connections and adds steel, and each mode is sensitive to these in different proportions. The analysis measures the net change in each mode; the finite element model below tests what caused it.
 - **Removing a confounder gives an effect estimate that does not depend on when you look.** The temperature-adjusted effect is stable across comparison windows; the naive one is not. This is a simple case of estimating an intervention's effect in the presence of a confounding variable.
+
+## What the strengthening changed structurally: a finite element model
+
+The frequency changes have a clear pattern across all five global vertical modes. The first symmetric mode (mode 5) dropped by 0.29%; every higher vertical mode rose by 1.5–2.1% (modes 6, 10, 12 and 13; modes 10 and 12 are before/after means, since they were tracked too rarely to adjust for temperature). The works strengthened the connections of the diagonals to the deck and the arches (dataset description). To test whether that explains the pattern, I built an in-plane finite element model of one side of the bridge (`src/fe_model.py`): a parabolic box arch, the T-girder carrying the deck, ballast and track mass, and 16 inclined diagonals.
+
+- **Geometry and sections** are taken from the published description (arXiv:2408.03002): 115 m long, box arch 0.86 × 1.30 m (t = 45 mm), box diagonals 0.345 × 0.35 m (t = 16 mm), T-girder 1.235 m deep, steel E = 210 GPa.
+- **Not published openly, so tuned or assumed:** the arch rise, the diagonal layout, the girder's effective bending stiffness (deck plate included), the mass per metre (kept within 6–10 t/m per side, from the section sizes), and the diagonals' effective axial stiffness, which stands for how stiff their connections are.
+- **Mode identification:** the dataset includes measured mode shapes at three deck sections (after the works only). Each measured vertical mode is paired with the model mode that matches its shape (MAC 0.96–1.00).
+
+![Model and mode shapes](figures/fig4_fe_model_modes.png)
+
+Before the works, the model reproduces the five vertical frequencies to within 6–18% (mean 11%), comparable to a published 3-D Abaqus model of this bridge (93% average accuracy). Keeping that model fixed, I then fitted just two parameters to the five measured changes: the change in diagonal stiffness, and steel mass added at the 16 connections.
+
+![Retrofit effect, model vs measured](figures/fig5_fe_retrofit.png)
+
+| Mode | Measured change | Model: stiffer diagonals + added steel | Model: stiffer diagonals only |
+|---|---|---|---|
+| 5 (1st symmetric) | −0.29% | −0.27% | +0.22% |
+| 6 (1st antisymmetric) | +2.11% | +2.22% | +2.22% |
+| 10 | +2.00% | +2.22% | +2.16% |
+| 12 | +2.07% | +1.73% | +1.72% |
+| 13 | +1.56% | +1.48% | +1.48% |
+
+- **Stiffer diagonal connections explain the rise of the higher modes.** These modes bend the arch and girder against each other, which loads the diagonals; the first symmetric mode moves arch and girder together and barely uses them.
+- **Only added steel explains the drop in mode 5.** Stiffness alone raises it (+0.22%); mass alone cannot raise the others.
+- **The inference holds when the unknowns change.** Refitting with the arch rise fixed at 15, 19 and 23 m and with the opposite diagonal layout always gives a **7–8% increase in diagonal stiffness** (6.8–8.0%) and **6–13 t of added steel per side**, with the measured changes reproduced to within 0.2–0.3 percentage points (`results/fe_sensitivity.csv`).
+- **What the model cannot tell:** how stiff the connections were in absolute terms (the fitted value ranges from 0.53 to 0.98 of a rigid connection across variants), or exactly which connections were strengthened. The lateral and torsional modes (3 and 9) need a 3-D model and are not covered.
 
 ## Limitations (found, not hidden)
 
@@ -76,6 +103,9 @@ pip install numpy scipy pandas matplotlib
 python src/analysis.py        # temperature models, residuals, retrofit effect, window sensitivity
 python src/control_chart.py   # raw vs compensated alarm charts
 python src/figures.py
+python src/fe_update.py       # finite element model: fit before, then the strengthening (about 10 min)
+python src/fe_sensitivity.py  # same fit under other arch rises and diagonal layout (about 20 min)
+python src/fe_figures.py
 ```
 
 | File | Purpose |
@@ -84,6 +114,9 @@ python src/figures.py
 | `src/analysis.py` | Model choice by blocked cross-validation, residuals, retrofit effect with block bootstrap |
 | `src/control_chart.py` | Daily alarm charts on raw frequencies and residuals |
 | `src/figures.py` | Figures 1–3 |
+| `src/fe_model.py` | In-plane finite element model (frame and truss elements, modal analysis) |
+| `src/fe_update.py`, `src/fe_sensitivity.py` | Model updating before and after strengthening; sensitivity to unpublished geometry |
+| `src/fe_figures.py` | Figures 4–5 |
 
 ## Author
 
