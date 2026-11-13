@@ -97,7 +97,9 @@ Method: stress = 210 GPa x measured strain; rainflow cycle counting (ASTM E1049,
 - **Nominal stresses are low.** The largest stress range in 13 passages is 30 MPa (diagonal 20); the typical largest range per passage is 9–14 MPa across the four gauges. For a detail of category 71 the fatigue cut-off is 29 MPa, so the measured nominal loading does almost no damage (largest Miner damage per passage 2 x 10⁻⁸, even for the weakest category, 36).
 - **So the damage must come from local stress, not the member's axial force.** A local stress-concentration factor of **4.5** at the connection (category 71, 2 million passages; 3.7–5.6 for 1–4 million) would make the same loading reach Miner damage of 1. That is large for a weld detail alone (typical hot-spot factors are about 1.5–3), so it points to secondary bending or a poor detail at the connection, or to heavier traffic than assumed. This is consistent with the works strengthening the connections rather than the diagonals themselves, and with the finite element model finding stiffer connections afterwards.
 
-What this cannot tell: the gauges sit on the members, not at the welds, and only 13 passages from one week are available (the diagonal gauges stop on 7 May 2019, before the works). Two recordings a day do not show the traffic mix. A hot-spot or local finite element model of the actual connection would be needed to turn the required factor into a fatigue life. The comparison after the strengthening needs months in which the diagonal gauges are back online.
+What this cannot tell: the gauges sit on the members, not at the welds, and only 13 passages from one week are available (the diagonal gauges stop on 7 May 2019, before the works). Two recordings a day do not show the traffic mix. A hot-spot or local finite element model of the actual connection would be needed to turn the required factor into a fatigue life.
+
+**After the works.** The diagonal gauges do not come back: they are blank in all 76 passages checked from October and December 2019. The deck girder gauges do record on both sides, so `src/deck_before_after.py` compares them (before: 1–14 May 2019; after: October and December 2019). Raw deck strains look 5–19% lower afterwards, but the rail strains, which measure the trains rather than the bridge, fell by 9–16% too. Divided by the rail strain of the track each train used, the deck strains change by −9% to +19% across the eight gauges, with no consistent drop (`results/deck_before_after.csv`). So the strengthening did not measurably relieve the deck girders; any change it made to the load path is local to the connections, where no gauges remain.
 
 ## Limitations (found, not hidden)
 
@@ -122,9 +124,10 @@ python src/fe_sensitivity.py  # same fit under other arch rises and diagonal lay
 python src/fe_figures.py
 python src/fatigue.py          # needs the traindata_201905 recordings in data/traindata/ (see below)
 python src/fatigue_figures.py
+python src/deck_before_after.py  # needs traindata_201905, _201910 and _201912
 ```
 
-For the fatigue analysis, download `traindata_201905.zip` from the same Zenodo record and unzip it into `data/traindata/traindata_201905/`.
+For the fatigue analysis, download `traindata_201905.zip` (and, for the before/after deck comparison, `traindata_201910.zip` and `traindata_201912.zip`) from the same Zenodo record and unzip each into `data/traindata/`.
 
 | File | Purpose |
 |---|---|
@@ -137,6 +140,7 @@ For the fatigue analysis, download `traindata_201905.zip` from the same Zenodo r
 | `src/fe_figures.py` | Figures 4–5 |
 | `src/fatigue.py` | Rainflow counting, EN 1993-1-9 S-N curves, Miner's damage, required stress-concentration factor |
 | `src/fatigue_figures.py` | Figure 6 |
+| `src/deck_before_after.py` | Deck girder strains before and after the works, normalised by rail strain |
 
 ## Author
 
