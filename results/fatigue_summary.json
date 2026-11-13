@@ -1,0 +1,78 @@
+{
+ "sgDI20ALB": {
+  "passages": 13,
+  "max_range_MPa": 30.227847546597687,
+  "median_max_range_MPa": 13.70883097835275,
+  "mean_damage_per_passage": {
+   "36": 2.40485534315925e-08,
+   "50": 5.14214830893036e-09,
+   "71": 4.948386128421949e-10,
+   "90": 0.0
+  },
+  "scf_for_D1": {
+   "1M_passages_cat71": 5.610998024711847,
+   "1M_passages_cat90": 7.112532707381215,
+   "2M_passages_cat71": 4.502492927328577,
+   "2M_passages_cat90": 5.707385400839041,
+   "4M_passages_cat71": 3.657973217418637,
+   "4M_passages_cat90": 4.636867458699681
+  }
+ },
+ "sgDI20ALL": {
+  "passages": 13,
+  "max_range_MPa": 23.61141941539783,
+  "median_max_range_MPa": 10.761169674206977,
+  "mean_damage_per_passage": {
+   "36": 7.627593868741728e-09,
+   "50": 8.307678195949099e-10,
+   "71": 0.0,
+   "90": 0.0
+  },
+  "scf_for_D1": {
+   "1M_passages_cat71": 7.113243912430388,
+   "1M_passages_cat90": 9.016788058010352,
+   "2M_passages_cat71": 5.720550505113762,
+   "2M_passages_cat90": 7.251402048735754,
+   "4M_passages_cat71": 4.644408634244071,
+   "4M_passages_cat90": 5.887278550450231
+  }
+ },
+ "sgDI23ALB": {
+  "passages": 13,
+  "max_range_MPa": 27.11043754559506,
+  "median_max_range_MPa": 12.639292490787081,
+  "mean_damage_per_passage": {
+   "36": 1.3525411392021872e-08,
+   "50": 1.6578751469055413e-09,
+   "71": 0.0,
+   "90": 0.0
+  },
+  "scf_for_D1": {
+   "1M_passages_cat71": 6.381963591922611,
+   "1M_passages_cat90": 8.089813003845563,
+   "2M_passages_cat71": 5.138111405141892,
+   "2M_passages_cat90": 6.513098964264369,
+   "4M_passages_cat71": 4.165361259175793,
+   "4M_passages_cat90": 5.280035398955231
+  }
+ },
+ "sgDI23ALL": {
+  "passages": 13,
+  "max_range_MPa": 19.015649270980383,
+  "median_max_range_MPa": 9.09159289115406,
+  "mean_damage_per_passage": {
+   "36": 1.4546633513314449e-09,
+   "50": 0.0,
+   "71": 0.0,
+   "90": 0.0
+  },
+  "scf_for_D1": {
+   "1M_passages_cat71": 8.526814608516599,
+   "1M_passages_cat90": 10.808638236147804,
+   "2M_passages_cat71": 6.918211302344105,
+   "2M_passages_cat90": 8.769563622689713,
+   "4M_passages_cat71": 5.636026724946259,
+   "4M_passages_cat90": 7.144259228805117
+  }
+ }
+}

@@ -85,6 +85,20 @@ Before the works, the model reproduces the five vertical frequencies to within 6
 - **The inference holds when the unknowns change.** Refitting with the arch rise fixed at 15, 19 and 23 m and with the opposite diagonal layout always gives a **7–8% increase in diagonal stiffness** (6.8–8.0%) and **6–13 t of added steel per side**, with the measured changes reproduced to within 0.2–0.3 percentage points (`results/fe_sensitivity.csv`).
 - **What the model cannot tell:** how stiff the connections were in absolute terms (the fitted value ranges from 0.53 to 0.98 of a rigid connection across variants), or exactly which connections were strengthened. The lateral and torsional modes (3 and 9) need a 3-D model and are not covered.
 
+## Fatigue of the diagonals: why the damage must be local
+
+The connections of the diagonals were strengthened because damage was found there. Four strain gauges on diagonals 20 and 23 recorded train passages before the works, so the measured member stresses can be checked against the Eurocode fatigue rules (EN 1993-1-9).
+
+Method: stress = 210 GPa x measured strain; rainflow cycle counting (ASTM E1049, checked against the standard's worked example); EN 1993-1-9 S-N curves (slope 3 to 5 million cycles, slope 5 to 100 million, cut-off below); Miner's rule. Traffic volume is not published, so lifetime passages are a parameter (1, 2 and 4 million; 2 million is about 110 trains a day for 50 years).
+
+![Diagonal stresses and fatigue curves](figures/fig6_fatigue.png)
+
+- **Each train gives one large stress cycle and many small ones.** The diagonal goes into compression as the train enters, cycles by a few MPa with each carriage, and swings into tension as it leaves.
+- **Nominal stresses are low.** The largest stress range in 13 passages is 30 MPa (diagonal 20); the typical largest range per passage is 9–14 MPa across the four gauges. For a detail of category 71 the fatigue cut-off is 29 MPa, so the measured nominal loading does almost no damage (largest Miner damage per passage 2 x 10⁻⁸, even for the weakest category, 36).
+- **So the damage must come from local stress, not the member's axial force.** A local stress-concentration factor of **4.5** at the connection (category 71, 2 million passages; 3.7–5.6 for 1–4 million) would make the same loading reach Miner damage of 1. That is large for a weld detail alone (typical hot-spot factors are about 1.5–3), so it points to secondary bending or a poor detail at the connection, or to heavier traffic than assumed. This is consistent with the works strengthening the connections rather than the diagonals themselves, and with the finite element model finding stiffer connections afterwards.
+
+What this cannot tell: the gauges sit on the members, not at the welds, and only 13 passages from one week are available (the diagonal gauges stop on 7 May 2019, before the works). Two recordings a day do not show the traffic mix. A hot-spot or local finite element model of the actual connection would be needed to turn the required factor into a fatigue life. The comparison after the strengthening needs months in which the diagonal gauges are back online.
+
 ## Limitations (found, not hidden)
 
 - **Freezing is only partly captured.** A single knot cannot follow the cold spell of January 2019, when the bridge stayed stiff for several days as the temperature rose again (possibly because frozen components lag behind the steel temperature). The remaining spike causes most of the 3–4 false-alarm days on the compensated chart. A model with memory (for example, a lagged or hysteretic freezing term) is the natural next step.
@@ -106,7 +120,11 @@ python src/figures.py
 python src/fe_update.py       # finite element model: fit before, then the strengthening (about 10 min)
 python src/fe_sensitivity.py  # same fit under other arch rises and diagonal layout (about 20 min)
 python src/fe_figures.py
+python src/fatigue.py          # needs the traindata_201905 recordings in data/traindata/ (see below)
+python src/fatigue_figures.py
 ```
+
+For the fatigue analysis, download `traindata_201905.zip` from the same Zenodo record and unzip it into `data/traindata/traindata_201905/`.
 
 | File | Purpose |
 |---|---|
@@ -117,6 +135,8 @@ python src/fe_figures.py
 | `src/fe_model.py` | In-plane finite element model (frame and truss elements, modal analysis) |
 | `src/fe_update.py`, `src/fe_sensitivity.py` | Model updating before and after strengthening; sensitivity to unpublished geometry |
 | `src/fe_figures.py` | Figures 4–5 |
+| `src/fatigue.py` | Rainflow counting, EN 1993-1-9 S-N curves, Miner's damage, required stress-concentration factor |
+| `src/fatigue_figures.py` | Figure 6 |
 
 ## Author
 
